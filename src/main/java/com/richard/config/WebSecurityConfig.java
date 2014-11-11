@@ -6,6 +6,9 @@ import org.springframework.security.config.annotation.authentication.configurers
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+import javax.annotation.Resource;
 
 /**
  * Created by rnkoaa on 11/10/14.
@@ -13,6 +16,8 @@ import org.springframework.security.config.annotation.web.servlet.configuration.
 @Configuration
 @EnableWebMvcSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -31,14 +36,35 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Configuration
-    protected static class AuthenticationConfiguration extends
-            GlobalAuthenticationConfigurerAdapter {
+    protected static class AuthenticationConfiguration extends GlobalAuthenticationConfigurerAdapter {
+        @Resource
+        UserDetailsService userDetailsService;
 
         @Override
         public void init(AuthenticationManagerBuilder auth) throws Exception {
-            auth
+            System.out.println("Using user Details Service");
+           /* auth
                     .inMemoryAuthentication()
-                    .withUser("user").password("password").roles("USER");
+                    .withUser("user").password("password").roles("USER");*/
+
+            /**
+             * using jdbc config
+             * JdbcUserDetailsManager userDetailsService = new JdbcUserDetailsManager();
+                userDetailsService.setDataSource(datasource);
+                PasswordEncoder encoder = new BCryptPasswordEncoder();
+
+                auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
+                auth.jdbcAuthentication().dataSource(datasource);
+
+                if(!userDetailsService.userExists("user")) {
+                List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+                authorities.add(new SimpleGrantedAuthority("USER"));
+                User userDetails = new User("user", encoder.encode("password"), authorities);
+
+                userDetailsService.createUser(userDetails);
+             }
+             */
+            auth.userDetailsService(userDetailsService);
         }
 
     }

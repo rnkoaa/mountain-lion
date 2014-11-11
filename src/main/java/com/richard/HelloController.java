@@ -15,18 +15,9 @@ public class HelloController {
         return "home";
     }
 
-    @RequestMapping("/login")
-    public String login(Model model) {
-        return "login";
-    }
 
     @RequestMapping("/hello")
     public String hello(Model model) {
-        return "hello";
-    }
-
-    @RequestMapping("/logout")
-    public String logout(Model model) {
         return "hello";
     }
 }
