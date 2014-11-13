@@ -1,15 +1,10 @@
 package com.richard.repository;
 
-import com.richard.model.User;
+import com.richard.models.accounts.internal.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
- * User: u0165547
- * Created: 11/11/2014 4:36 PM
+ * Created by rnkoaa on 11/11/14.
  */
-public interface UserRepository/* extends MongoRepository<User, String>*/ {
-/*
-    public User findById(String id);
-
-    public String findByEmail(String email);*/
+public interface UserRepository extends MongoRepository<User, String> {
 }
