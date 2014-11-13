@@ -25,11 +25,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     }
 */
 
-    @Bean
-    public UserEventListener userEventListener() {
-        logger.debug("Registering Bean for UserEvent listener");
-        return new UserEventListener();
-    }
+
 
     @Bean
     protected ServletContextListener listener() {

@@ -1,5 +1,6 @@
 package com.richard;
 
+import com.richard.config.UserEventListener;
 import com.richard.config.WebConfig;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -23,6 +24,12 @@ import java.util.Arrays;
 @ComponentScan
 public class Application {
     private static Log logger = LogFactory.getLog(Application.class);
+
+    @Bean
+    public UserEventListener userEventListener() {
+        logger.debug("Registering Bean for UserEvent listener");
+        return new UserEventListener();
+    }
 
     public static void main(String[] args) {
         ApplicationContext ctx = SpringApplication.run(Application.class, args);

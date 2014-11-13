@@ -1,5 +1,6 @@
 package com.richard.repository;
 
+import com.richard.Application;
 import com.richard.config.MongoConfig;
 import com.richard.config.WebConfig;
 import com.richard.models.accounts.internal.User;
@@ -17,7 +18,7 @@ import static org.junit.Assert.assertNotNull;
 /**
  * Created by rnkoaa on 11/11/14.
  */
-@ContextConfiguration(classes = {MongoConfig.class, WebConfig.class})
+@ContextConfiguration(classes = {Application.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserRepositorySpec {
 
@@ -38,11 +39,11 @@ public class UserRepositorySpec {
     public void testMongoRepository() {
         assertNotNull(userRepository);
         User user = new User.UserBuilder()
-                .emailAddress("richard.agyei@gmail.com")
-                .firstName("Richard")
-                .lastName("agyei")
+                .emailAddress("k.a@gmail.com")
+                .firstName("r")
+                .lastName("s")
                 .isActive(true)
-                .password("nana")
+                .password("mn")
                 .build();
         assert (user.getCreated() == null);
         assert (user.getLastModified() == null);

@@ -1,6 +1,6 @@
 package com.richard.service.impl;
 
-import com.richard.model.User;
+import com.richard.models.accounts.internal.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +17,7 @@ import java.util.List;
  * Created: 11/11/2014 4:35 PM
  */
 @Component("userDetailService")
-public class MongoUserDetailServiceImpl implements UserDetailsService {
+public class UserDetailServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -49,7 +49,7 @@ public class MongoUserDetailServiceImpl implements UserDetailsService {
         }
 
         public CustomUserDetails(User user) {
-            username = user.getUsername();
+            username = user.getEmailAddress();
             password = user.getPassword();
             authorities = null;
             this.user = user;

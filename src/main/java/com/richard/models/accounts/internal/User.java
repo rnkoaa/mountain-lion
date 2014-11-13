@@ -17,7 +17,7 @@ public class User extends Person {
 
     private Set<Role> roles;
 
-    public User(){
+    public User() {
         super(null, null, null);
         emailAddress = null;
         password = null;
@@ -26,6 +26,7 @@ public class User extends Person {
     public User(UserBuilder userBuilder) {
         super(userBuilder.firstName, userBuilder.lastName, userBuilder.middleName);
         this.active = userBuilder.active;
+        setId(userBuilder.id);
         this.roles = userBuilder.roles;
         this.emailAddress = userBuilder.emailAddress;
         this.password = userBuilder.password;
@@ -60,6 +61,12 @@ public class User extends Person {
         private String password;
         private DateTime created;
         private DateTime lastModified;
+        private String id;
+
+        public UserBuilder id(String id) {
+            this.id = id;
+            return this;
+        }
 
         public UserBuilder firstName(String firstName) {
             this.firstName = firstName;

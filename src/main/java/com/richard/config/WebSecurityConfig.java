@@ -1,5 +1,8 @@
 package com.richard.config;
 
+import com.richard.models.accounts.internal.User;
+import com.richard.service.UserDetailServiceCustom;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
@@ -40,31 +43,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         @Resource
         UserDetailsService userDetailsService;
 
+        @Autowired
+        UserDetailServiceCustom userDetailServiceCustom;
+
         @Override
         public void init(AuthenticationManagerBuilder auth) throws Exception {
-            System.out.println("Using user Details Service");
-           /* auth
-                    .inMemoryAuthentication()
-                    .withUser("user").password("password").roles("USER");*/
-
-            /**
-             * using jdbc config
-             * JdbcUserDetailsManager userDetailsService = new JdbcUserDetailsManager();
-             userDetailsService.setDataSource(datasource);
-             PasswordEncoder encoder = new BCryptPasswordEncoder();
-
-             auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
-             auth.jdbcAuthentication().dataSource(datasource);
-
-             if(!userDetailsService.userExists("user")) {
-             List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-             authorities.add(new SimpleGrantedAuthority("USER"));
-             User userDetails = new User("user", encoder.encode("password"), authorities);
-
-             userDetailsService.createUser(userDetails);
-             }
-             */
             auth.userDetailsService(userDetailsService);
+            if (!userDetailServiceCustom.exists("r.ds@gmail.com")) {
+                User user = new User.UserBuilder()
+                        .emailAddress("r.ds@gmail.com")
+                        .firstName("r")
+                        .lastName("sd")
+                        .isActive(true)
+                        .password("mn")
+                        .build();
+                userDetailServiceCustom.save(user);
+                System.out.println(user.getId() + " ==> Saved User Id");
+            }
         }
 
     }
