@@ -12,7 +12,7 @@ public class AbstractEntity {
     private String id;
 
     private DateTime created;
-    private DateTime updated;
+    private DateTime lastModified;
 
     public String getId() {
         return id;
@@ -30,11 +30,11 @@ public class AbstractEntity {
         this.created = created;
     }
 
-    public DateTime getUpdated() {
-        return updated;
+    public DateTime getLastModified() {
+        return lastModified;
     }
 
-    public void setUpdated(DateTime updated) {
-        this.updated = updated;
+    public void setLastModified(DateTime updated) {
+        this.lastModified = updated;
     }
 }

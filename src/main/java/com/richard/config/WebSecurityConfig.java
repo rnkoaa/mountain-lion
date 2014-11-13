@@ -50,18 +50,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             /**
              * using jdbc config
              * JdbcUserDetailsManager userDetailsService = new JdbcUserDetailsManager();
-                userDetailsService.setDataSource(datasource);
-                PasswordEncoder encoder = new BCryptPasswordEncoder();
+             userDetailsService.setDataSource(datasource);
+             PasswordEncoder encoder = new BCryptPasswordEncoder();
 
-                auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
-                auth.jdbcAuthentication().dataSource(datasource);
+             auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
+             auth.jdbcAuthentication().dataSource(datasource);
 
-                if(!userDetailsService.userExists("user")) {
-                List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-                authorities.add(new SimpleGrantedAuthority("USER"));
-                User userDetails = new User("user", encoder.encode("password"), authorities);
+             if(!userDetailsService.userExists("user")) {
+             List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+             authorities.add(new SimpleGrantedAuthority("USER"));
+             User userDetails = new User("user", encoder.encode("password"), authorities);
 
-                userDetailsService.createUser(userDetails);
+             userDetailsService.createUser(userDetails);
              }
              */
             auth.userDetailsService(userDetailsService);

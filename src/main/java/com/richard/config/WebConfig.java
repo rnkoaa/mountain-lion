@@ -3,7 +3,7 @@ package com.richard.config;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.servlet.ServletContextEvent;
@@ -12,7 +12,7 @@ import javax.servlet.ServletContextListener;
 /**
  * Created by rnkoaa on 11/10/14.
  */
-//@Configuration
+@Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
     private static Log logger = LogFactory.getLog(WebConfig.class);
 
@@ -24,6 +24,13 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/login").setViewName("login");
     }
 */
+
+    @Bean
+    public UserEventListener userEventListener() {
+        logger.debug("Registering Bean for UserEvent listener");
+        return new UserEventListener();
+    }
+
     @Bean
     protected ServletContextListener listener() {
         return new ServletContextListener() {

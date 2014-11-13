@@ -1,6 +1,7 @@
 package com.richard.models.accounts.internal;
 
 import com.richard.models.accounts.Person;
+import org.joda.time.DateTime;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Set;
@@ -28,6 +29,8 @@ public class User extends Person {
         this.roles = userBuilder.roles;
         this.emailAddress = userBuilder.emailAddress;
         this.password = userBuilder.password;
+        this.setCreated(userBuilder.created);
+        this.setLastModified(userBuilder.lastModified);
     }
 
     public boolean isActive() {
@@ -55,6 +58,8 @@ public class User extends Person {
         private String middleName;
         private String emailAddress;
         private String password;
+        private DateTime created;
+        private DateTime lastModified;
 
         public UserBuilder firstName(String firstName) {
             this.firstName = firstName;
@@ -93,6 +98,16 @@ public class User extends Person {
 
         public User build() {
             return new User(this);
+        }
+
+        public UserBuilder created(DateTime created) {
+            this.created = created;
+            return this;
+        }
+
+        public UserBuilder lastModified(DateTime lastModified) {
+            this.lastModified = lastModified;
+            return this;
         }
     }
 }
